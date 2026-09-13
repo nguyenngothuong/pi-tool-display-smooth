@@ -4,6 +4,22 @@ Bản fork cộng đồng của **pi-tool-display-intent 0.10.0**, giữ giao di
 
 Phần giao diện, nhóm tool và popup do upstream phát triển. Đóng góp của fork này là cache nội dung tĩnh khi ẩn thinking. [Nguồn gốc và credit](NOTICE.md).
 
+## Ảnh minh hoạ
+
+Ảnh gốc từ [pi-tool-display-intent của zhcsyncer](https://github.com/zhcsyncer/pi-extensions/tree/main/packages/pi-tool-display-intent), đã lưu trực tiếp trong repo và giữ credit upstream. Tên nhãn và màu sắc có thể khác đôi chút theo phiên bản/theme.
+
+**Thu gọn — cả nhóm tool chỉ còn phần tóm tắt ngắn.**
+
+![Nhóm tool thu gọn, hiển thị số lần gọi và thời gian](assets/demo-aggregate-1.png)
+
+**Mở rộng — xem từng lần đọc file, sửa file và chạy lệnh.**
+
+![Nhóm tool mở rộng với danh sách các lần gọi](assets/demo-aggregate-2.png)
+
+**Có lỗi — phần tóm tắt vẫn làm nổi bật các lần gọi thất bại.**
+
+![Nhóm tool báo ba lần gọi thất bại](assets/demo-aggregate-3.png)
+
 ## Cài đặt
 
 Đã kiểm với **Pi 0.85.1, Node.js 22**. Nếu đang dùng pi-tool-display-intent, gỡ hoặc tắt bản đó trước để tránh hai extension cùng sửa giao diện.

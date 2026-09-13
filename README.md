@@ -4,6 +4,22 @@ Compact tool groups, click-to-inspect results, and smoother history scrolling in
 
 **Independent community fork** of [pi-tool-display-intent](https://github.com/zhcsyncer/pi-extensions/tree/main/packages/pi-tool-display-intent) v0.10.0. The display features are upstream's work; this fork adds a focused cache to avoid rebuilding static Markdown while scrolling with thinking hidden. [Tiếng Việt](README.vi.md) · [Attribution](NOTICE.md)
 
+## Screenshots
+
+Original screenshots from [zhcsyncer's pi-tool-display-intent](https://github.com/zhcsyncer/pi-extensions/tree/main/packages/pi-tool-display-intent), included locally with upstream attribution. Labels and styling may differ slightly by version and theme.
+
+**Collapsed tools — a compact summary of the whole run.**
+
+![Collapsed tool group showing call counts and timing](assets/demo-aggregate-1.png)
+
+**Expanded tools — inspect the individual calls in a run.**
+
+![Expanded tool group showing read, edit and bash calls](assets/demo-aggregate-2.png)
+
+**Errors remain visible — a summary highlights failed calls.**
+
+![Tool group summary highlighting three failed calls](assets/demo-aggregate-3.png)
+
 ## Install
 
 Tested with **Pi 0.85.1 and Node.js 22**. Other Pi versions are not yet validated: this extension patches internal UI components.
