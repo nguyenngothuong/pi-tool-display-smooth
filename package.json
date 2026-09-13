@@ -1,0 +1,77 @@
+{
+  "name": "pi-tool-display-smooth",
+  "version": "0.1.0",
+  "description": "Community fork of pi-tool-display-intent with cached rendering for smoother history scrolling.",
+  "type": "module",
+  "main": "./extensions/tool-display-intent.ts",
+  "exports": {
+    ".": "./extensions/tool-display-intent.ts",
+    "./tool-display-api-consumer": {
+      "types": "./tool-display-api-consumer.d.ts",
+      "default": "./tool-display-api-consumer.js"
+    }
+  },
+  "files": [
+    "extensions",
+    "src",
+    "tool-display-api-consumer.js",
+    "tool-display-api-consumer.d.ts",
+    "config",
+    "assets",
+    "README.md",
+    "README.vi.md",
+    "LICENSE",
+    "UPSTREAM_LICENSE",
+    "NOTICE.md",
+    "docs"
+  ],
+  "keywords": [
+    "pi-package",
+    "pi-extension",
+    "pi-coding-agent",
+    "pi-tui",
+    "tool-rendering",
+    "tool-intent",
+    "display-summary",
+    "diff-visualization",
+    "output-truncation"
+  ],
+  "author": "zhcsyncer",
+  "contributors": [
+    "MasuRii (original pi-tool-display author)",
+    "Mert Deveci (pi-tool-display-summary author)"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nguyenngothuong/pi-tool-display-smooth.git"
+  },
+  "homepage": "https://github.com/nguyenngothuong/pi-tool-display-smooth",
+  "bugs": {
+    "url": "https://github.com/nguyenngothuong/pi-tool-display-smooth/issues"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "pi": {
+    "extensions": [
+      "./extensions/tool-display-intent.ts"
+    ]
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "0.85.1",
+    "@earendil-works/pi-tui": "0.85.1"
+  },
+  "devDependencies": {
+    "@earendil-works/pi-coding-agent": "0.85.1",
+    "@earendil-works/pi-tui": "0.85.1",
+    "tsx": "4.22.4",
+    "typescript": "6.0.3"
+  },
+  "scripts": {
+    "test": "tsx --test tests/*.test.ts",
+    "typecheck": "tsc --noEmit --skipLibCheck --target es2023 --module nodenext --allowImportingTsExtensions src/stripped-render-cache.ts",
+    "check": "npm run typecheck && npm test"
+  },
+  "private": true
+}

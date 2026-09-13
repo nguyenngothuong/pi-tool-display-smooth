@@ -1,0 +1,185 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/zhcsyncer/pi-extensions/main/packages/pi-tool-display-intent/config/config.schema.json",
+  "title": "pi-tool-display-intent configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "results"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "version": {
+      "const": 2
+    },
+    "intent": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "language": {
+          "enum": ["auto", "zh-CN", "en"],
+          "default": "auto"
+        },
+        "maxLength": {
+          "type": "integer",
+          "minimum": 16,
+          "maximum": 256,
+          "default": 96
+        }
+      }
+    },
+    "toolCalls": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "layout": {
+          "enum": ["individual", "aggregate"],
+          "default": "individual",
+          "description": "Controls whether tools use their individual renderers or one bounded all-tool Tools summary per user turn. Aggregate stays collapsed as a Tools ledger. While the turn is running, the latest assistant note stays pinned under the header, above the tool rows; after the turn settles, assistant notes hide and a receipt shows duration, tokens, cache, and completion time. Ctrl+O restores the original timeline of notes plus one target/status summary per call."
+        },
+        "bashCommandPreviewRows": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8,
+          "default": 1,
+          "description": "Maximum rendered terminal rows used by collapsed Bash command arguments. Ctrl+O shows the complete command."
+        },
+        "expandedTimeline": {
+          "enum": ["flat", "turns"],
+          "default": "flat",
+          "description": "Controls the Ctrl+O aggregate timeline. flat keeps one target/status row per call. turns groups those rows by agent turn with a ↻ 1/N header and indented calls. Collapsed Tools is unchanged. Changing this does not reload the session."
+        },
+        "showContextGrowth": {
+          "type": "boolean",
+          "default": false,
+          "description": "Shows ctx +/- tokens in the aggregate run receipt and agent-turn headers in the turns timeline. flat still shows the run total, without per-turn changes. Context changes are attributed to the originating agent turn after the next compatible request usage is available; terminal or unconfirmed changes are approximate (≈), and boundary gaps are never exact growth. Separate from total token consumption. Individual layout retains but does not use this setting. Changing this does not reload the session."
+        }
+      }
+    },
+    "results": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode"],
+      "properties": {
+        "mode": {
+          "enum": ["compact", "summary", "preview"],
+          "default": "compact",
+          "description": "Controls whether tool results are compact, summarized, or previewed."
+        },
+        "previewRows": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 80,
+          "default": 8,
+          "description": "Maximum rendered terminal rows shown by collapsed tool-result content previews after wrapping."
+        }
+      }
+    },
+    "diff": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "layout": {
+          "enum": ["auto", "split", "unified"],
+          "default": "auto"
+        },
+        "indicators": {
+          "enum": ["bars", "classic", "none"],
+          "default": "bars"
+        },
+        "splitMinWidth": {
+          "type": "integer",
+          "minimum": 70,
+          "maximum": 240,
+          "default": 120
+        },
+        "collapsedRows": {
+          "type": "integer",
+          "minimum": 4,
+          "maximum": 240,
+          "default": 24
+        },
+        "collapsedMode": {
+          "enum": ["body", "summary"],
+          "default": "body",
+          "description": "Controls what edit/write diffs render before Ctrl+O expansion. 'body' shows the first collapsedRows rows then a fold hint; 'summary' shows only the +N -M stats line for the densest transcript."
+        },
+        "wordWrap": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "tools": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "passthrough": {
+          "type": "array",
+          "uniqueItems": true,
+          "default": [],
+          "description": "Explicit exceptions whose original transcript renderer remains active in aggregate layout. Empty by default: Agent and consult are aggregated too. Built-in names also opt out of this extension's individual renderer override.",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^(?!\\s)(?=.*\\S)(?!.*\\s$).+$"
+          }
+        },
+        "custom": {
+          "type": "object",
+          "propertyNames": {
+            "minLength": 1,
+            "pattern": "^(?!\\s)(?=.*\\S)(?!.*\\s$).+$",
+            "not": {
+              "enum": ["read", "grep", "find", "ls", "bash", "edit", "write"]
+            }
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/customTool"
+          }
+        }
+      }
+    },
+    "advanced": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "expandedRows": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 20000,
+          "default": 4000,
+          "description": "Maximum laid-out rows shown after expansion. Zero removes the configured cap while internal safety limits still apply."
+        },
+        "truncationHints": {
+          "type": "boolean",
+          "default": false
+        },
+        "rtkCompactionHints": {
+          "type": "boolean",
+          "default": false
+        },
+        "debug": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    }
+  },
+  "$defs": {
+    "customTool": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "renderer": {
+          "enum": ["generic", "mcp"],
+          "default": "generic"
+        },
+        "mode": {
+          "enum": ["hidden", "summary", "preview"],
+          "default": "summary"
+        }
+      }
+    }
+  }
+}
